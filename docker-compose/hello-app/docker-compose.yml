@@ -1,0 +1,16 @@
+services:
+  hello-world:
+    image: nginx:alpine
+    container_name: hello-world
+    restart: unless-stopped
+    ports:
+      - "8080:80" # Expose on port 8080 for NPM to proxy
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+    networks:
+      - npm_network
+
+networks:
+  npm_network:
+    name: npm_network
+    external: true

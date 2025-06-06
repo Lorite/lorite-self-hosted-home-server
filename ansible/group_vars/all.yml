@@ -1,0 +1,23 @@
+# System configuration
+docker_users:
+  - "{{ lookup('env', 'HOMELAB_USER') | default(lookup('env', 'USER')) }}"
+
+# Application configuration
+homelab_user: "{{ lookup('env', 'HOMELAB_USER') | default(lookup('env', 'USER')) }}"
+homelab_dir: "{{ lookup('env', 'HOMELAB_DIR') | default('/home/' + lookup('env', 'USER') + '/homelab') }}"
+services_dir: "{{ lookup('env', 'SERVICES_DIR') | default(homelab_dir + '/services') }}"
+
+# Docker Compose services to deploy
+docker_compose_services:
+  - name: nginx-proxy-manager
+    directory: "{{ services_dir }}/nginx-proxy-manager"
+  - name: hello-app
+    directory: "{{ services_dir }}/hello-app"
+  - name: portainer
+    directory: "{{ services_dir }}/portainer"
+
+# Domain configuration (optional)
+domain: "{{ lookup('env', 'DOMAIN') | default('homelab.local') }}"
+
+# Local vs Remote specific settings
+local_mode: "{{ lookup('env', 'LOCAL_MODE') | default(ansible_connection == 'local') }}"

@@ -1,0 +1,13 @@
+# Environments
+.env
+
+# Config and backup files
+configs/
+
+# Ansible
+ansible/inventory/remote.yml
+
+# Python
+.venv/
+__pycache__/
+*.pyc

@@ -1,0 +1,27 @@
+networks:
+  npm_network:
+    name: npm_network
+    external: true
+
+services:
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    restart: unless-stopped
+    ports:
+      - "80:80" # HTTP
+      - "443:443" # HTTPS
+      - "81:81" # Admin Web Interface
+    volumes:
+      - npm_data:/data
+      - npm_letsencrypt:/etc/letsencrypt
+    environment:
+      # Uncomment if you want to change the default database location
+      # DB_SQLITE_FILE: "/data/database.sqlite"
+      DISABLE_IPV6: "true"
+    networks:
+      - npm_network
+
+volumes:
+  npm_data:
+  npm_letsencrypt:

@@ -1,0 +1,31 @@
+---
+- name: Deploy Docker Compose services
+  hosts: homelab
+  become: no
+  vars_files:
+    - ../group_vars/all.yml
+  tasks:
+    - name: Copy Docker Compose files
+      copy:
+        src: "../../docker-compose/{{ item.name }}/"
+        dest: "{{ item.directory }}/"
+        owner: "{{ homelab_user }}"
+        group: "{{ homelab_user }}"
+        mode: "0644"
+      loop: "{{ docker_compose_services }}"
+
+    - name: Copy configuration files
+      copy:
+        src: "../../configs/"
+        dest: "{{ homelab_dir }}/configs/"
+        owner: "{{ homelab_user }}"
+        group: "{{ homelab_user }}"
+        mode: "0644"
+
+    - name: Start Docker Compose services
+      community.docker.docker_compose_v2:
+        project_src: "{{ item.directory }}"
+        state: present
+        pull: policy
+        recreate: always # TODO: change to auto if possible. I set it to always because the network was not being recreated sometimes.
+      loop: "{{ docker_compose_services }}"

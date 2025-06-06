@@ -1,0 +1,9 @@
+all:
+  children:
+    homelab:
+      hosts:
+        localhost:
+          ansible_connection: local
+          ansible_user: "{{ lookup('env', 'USER') }}"
+          become_method: sudo
+          ansible_become_ask_pass: true

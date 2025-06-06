@@ -1,0 +1,179 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Deploy Local",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/deploy.sh",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Deploy Remote",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/deploy.sh -i remote",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Deploy with Sudo",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/deploy.sh -K",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Deploy Local (Fresh Install)",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/deploy.sh -f",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Deploy Remote (Fresh Install)",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/deploy.sh -i remote -f",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Update Local",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/update.sh",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Update Remote",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/update.sh -i remote",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backup Local",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/backup.sh",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backup Remote",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/backup.sh -i remote",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backup with Custom Directory",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/backup.sh -d ~/homelab-backups",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Check Docker Status",
+      "type": "shell",
+      "command": "docker ps",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "View Docker Networks",
+      "type": "shell",
+      "command": "docker network ls",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "View Docker Volumes",
+      "type": "shell",
+      "command": "docker volume ls",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Shutdown Local",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/shutdown.sh",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Shutdown Remote",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/shutdown.sh -i remote",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Shutdown with Backup (Local)",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/shutdown.sh -b",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Shutdown with Backup (Remote)",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/shutdown.sh -i remote -b",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "githubIssues.issueBranchTitle": "${user}/issue${issueNumber}/${sanitizedIssueTitle}",
+  "githubPullRequests.notifications": "pullRequests",
+  "githubPullRequests.defaultMergeMethod": "squash",
+  "githubPullRequests.showPullRequestNumberInTree": true,
+  "settings": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "github.copilot.chat.codeGeneration.instructions": [
+      {
+        "file": ".copilot-codeGeneration-instructions.md"
+      }
+    ],
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "github.copilot.chat.scopeSelection": true,
+    "github.copilot.chat.codesearch.enabled": true,
+    "github.copilot.chat.editor.temporalContext.enabled": true,
+    "github.copilot.chat.edits.temporalContext.enabled": true,
+    "github.copilot.chat.generateTests.codeLens": true,
+    "githubPullRequests.experimental.chat": true,
+    "githubPullRequests.experimental.useQuickChat": true,
+    "github.copilot.selectedCompletionModel": "gpt-4o-copilot",
+    "security.workspace.trust.untrustedFiles": "open"
+  }
+}
