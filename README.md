@@ -1,10 +1,24 @@
 # Self-Hosted Home Server
 
-A comprehensive solution for deploying and managing self-hosted services in a home lab environment using Docker containers and Ansible for deployment and configuration management.
+> **⚠️ ARCHIVED**: This repository has been archived. The author has migrated to [Coolify](https://coolify.io) for easier management and a web-based interface. This code remains available for reference and learning purposes.
 
-## Project Overview
+## About This Project
 
-This self-hosted home server setup allows you to easily deploy various services either locally or on a remote server. It's designed to be modular, maintainable, and easy to use, even for those new to self-hosting.
+This was a custom solution for deploying and managing self-hosted services in a home lab environment using Docker containers and Ansible for deployment and configuration management.
+
+While this approach provided full control and was an excellent learning experience, **Coolify** offers a more user-friendly alternative with:
+- Web-based GUI for deployment management
+- Built-in SSL certificate automation
+- Git integration for automatic deployments
+- Monitoring and log viewing
+- Multi-server support
+- One-click application templates
+
+**For new users**: Consider using [Coolify](https://coolify.io) instead of building from scratch.
+
+## Original Project Overview
+
+This self-hosted home server setup allowed easy deployment of various services either locally or on a remote server. It was designed to be modular, maintainable, and easy to use, even for those new to self-hosting.
 
 ## Features
 
