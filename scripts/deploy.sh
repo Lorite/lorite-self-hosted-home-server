@@ -230,6 +230,7 @@ if [ "$INVENTORY" = "local" ]; then
     echo "  - Hello World App: http://localhost:8080"
     echo "  - Portainer: http://localhost:9000"
     echo "  - Pi-hole: http://localhost:8081/admin (DNS on port 53)"
+    echo "  - Immich: http://localhost:2283"
 else
     SERVER_IP=$INVENTORY
     if [ "$INVENTORY" = "remote" ]; then
@@ -239,6 +240,7 @@ else
     echo "  - Hello World App: http://$SERVER_IP:8080"
     echo "  - Portainer: http://$SERVER_IP:9000"
     echo "  - Pi-hole: http://$SERVER_IP:8081/admin (DNS on port 53)"
+    echo "  - Immich: http://$SERVER_IP:2283"
 fi
 
 echo ""
@@ -253,14 +255,22 @@ echo ""
 echo -e "${YELLOW}🔐 Pi-hole credentials:${NC}"
 echo "  Password: Set in .env file (PIHOLE_PASSWORD)"
 echo ""
+echo -e "${YELLOW}📸 Immich setup:${NC}"
+echo "  - Create your admin account on first visit"
+echo "  - Download mobile apps: iOS/Android"
+echo "  - Configure IMMICH_DB_PASSWORD in .env file"
+echo "  - Photos stored in: \${IMMICH_UPLOAD_LOCATION} (default: ./library)"
+echo ""
 echo -e "${YELLOW}💡 After setting up proxy hosts in NPM, you can access:${NC}"
 if [ "$INVENTORY" = "local" ]; then
     echo "  In some browsers, you can use the following URLs:"
     echo "  - Hello World: http://hello.lvh.me/"
     echo "  - Portainer: http://portainer.lvh.me/"
     echo "  - Pi-hole: http://pihole.lvh.me/"
+    echo "  - Immich: http://immich.lvh.me/"
 else
     echo "  - Hello World: http://hello.$SERVER_IP"
     echo "  - Portainer: http://portainer.$SERVER_IP"
     echo "  - Pi-hole: http://pihole.$SERVER_IP"
+    echo "  - Immich: http://immich.$SERVER_IP"
 fi

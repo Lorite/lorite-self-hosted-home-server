@@ -17,6 +17,8 @@ docker_compose_services:
     directory: "{{ services_dir }}/portainer"
   - name: pihole
     directory: "{{ services_dir }}/pihole"
+  - name: immich
+    directory: "{{ services_dir }}/immich"
 
 # Domain configuration (optional)
 domain: "{{ lookup('env', 'DOMAIN') | default('homelab.local') }}"

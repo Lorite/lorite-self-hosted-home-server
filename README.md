@@ -23,6 +23,7 @@ Current services included:
 - **Nginx Proxy Manager**: Reverse proxy for accessing services with configuration backup/restore
 - **Portainer**: Web UI for Docker management
 - **Pi-hole**: Network-wide ad blocker and DNS server (web interface on port 8081, DNS on port 53)
+- **Immich**: Self-hosted photo and video backup solution (Google Photos alternative)
 
 ## Getting Started
 
@@ -64,14 +65,18 @@ The project supports different deployment targets:
     **Important**: Configure the following in `.env`:
     - Set your server's IP address for `PIHOLE_HOST_IP`
     - Set a strong password for `PIHOLE_PASSWORD` (used for Pi-hole web interface)
+    - Set a strong password for `IMMICH_DB_PASSWORD` (used for Immich database)
+    - Optionally adjust `IMMICH_TZ` to your timezone
+    - Optionally adjust `IMMICH_UPLOAD_LOCATION` for photo/video storage location
     
     ```bash
     # Find your IP address
     hostname -I | awk '{print $1}'
     
-    # Edit .env and update PIHOLE_HOST_IP and PIHOLE_PASSWORD
+    # Edit .env and update the configuration
     nano .env
     ```
+    
 5.  For remote deployment, copy `ansible/inventory/remote.yml.example` to `ansible/inventory/remote.yml` and update it with your server's details.
 6.  Run the deployment script with the `-K` flag to be prompted for your sudo password:
     ```bash
@@ -183,6 +188,14 @@ After deployment, services are accessible at the following URLs (local deploymen
   - Password: Set in `.env` file as `PIHOLE_PASSWORD` (default: `admin` if not set)
   - DNS server on port 53 (bound to your primary network interface)
   - **Note**: Automatically configured to avoid conflicts with system DNS services
+
+- **Immich**: http://localhost:2283
+  - Create your admin account on first visit
+  - Mobile apps available for iOS and Android
+  - Supports automatic photo/video backup from mobile devices
+  - Machine learning features for face recognition and smart search
+  - **Storage**: Photos and videos stored in location specified by `IMMICH_UPLOAD_LOCATION` in `.env`
+  - **Database**: PostgreSQL data stored in Docker volume `immich_postgres_data`
 
 ### Using Pi-hole as Your DNS Server
 

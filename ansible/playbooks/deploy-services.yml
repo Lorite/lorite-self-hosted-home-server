@@ -22,10 +22,21 @@
         group: "{{ homelab_user }}"
         mode: "0644"
 
+    - name: Pull Docker images for services
+      community.docker.docker_compose_v2:
+        project_src: "{{ item.directory }}"
+        pull: always
+        state: present
+      loop: "{{ docker_compose_services }}"
+      async: 1800  # 30 minutes timeout for pulling images
+      poll: 10     # Check every 10 seconds
+
     - name: Start Docker Compose services
       community.docker.docker_compose_v2:
         project_src: "{{ item.directory }}"
         state: present
-        pull: policy
+        pull: never  # Images already pulled in previous step
         recreate: always # TODO: change to auto if possible. I set it to always because the network was not being recreated sometimes.
       loop: "{{ docker_compose_services }}"
+      async: 600   # 10 minutes timeout for starting services
+      poll: 5      # Check every 5 seconds
