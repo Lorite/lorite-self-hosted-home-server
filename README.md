@@ -22,6 +22,7 @@ Current services included:
 - **Hello App**: Example application to verify deployment
 - **Nginx Proxy Manager**: Reverse proxy for accessing services with configuration backup/restore
 - **Portainer**: Web UI for Docker management
+- **Pi-hole**: Network-wide ad blocker and DNS server (web interface on port 8081, DNS on port 53)
 
 ## Getting Started
 
@@ -59,8 +60,20 @@ The project supports different deployment targets:
     ```bash
     cp .env.example .env
     ```
+    
+    **Important**: Configure the following in `.env`:
+    - Set your server's IP address for `PIHOLE_HOST_IP`
+    - Set a strong password for `PIHOLE_PASSWORD` (used for Pi-hole web interface)
+    
+    ```bash
+    # Find your IP address
+    hostname -I | awk '{print $1}'
+    
+    # Edit .env and update PIHOLE_HOST_IP and PIHOLE_PASSWORD
+    nano .env
+    ```
 5.  For remote deployment, copy `ansible/inventory/remote.yml.example` to `ansible/inventory/remote.yml` and update it with your server's details.
-6.  Run the deployment script with appropriate options. For example, to deploy locally:
+6.  Run the deployment script with the `-K` flag to be prompted for your sudo password:
     ```bash
     ./scripts/deploy.sh -K
     ```
@@ -87,7 +100,7 @@ To use these tasks, open the Command Palette in VS Code (`Ctrl+Shift+P`) and sea
 Options:
   -i, --inventory <local|remote|IP>  Deployment target (default: local)
   -s, --skip-deps                    Skip dependency checks
-  -r, --restore-npm                  Restore Nginx Proxy Manager configuration
+  -f, --fresh                        Start fresh (don't use existing backups)
   -K, --ask-become-pass              Ask for sudo password
   -h, --help                         Show help message
 ```
@@ -148,6 +161,74 @@ Key playbooks:
 - `site.yml`: Main entry point
 - `setup-system.yml`: System preparation
 - `deploy-services.yml`: Service deployment
+
+## Accessing Services
+
+After deployment, services are accessible at the following URLs (local deployment):
+
+- **Nginx Proxy Manager**: http://localhost:81
+  - Default Email: `admin@example.com` or `adminn@example.com`
+  - Default Password: `changeme`
+  - Use this to set up reverse proxy for other services
+
+- **Hello World App**: http://localhost:8080
+  - Simple test application to verify deployment
+
+- **Portainer**: http://localhost:9000
+  - Default Username: `admin`
+  - Default Password: `myportainerpassword`
+  - Docker container management interface
+
+- **Pi-hole**: http://localhost:8081/admin
+  - Password: Set in `.env` file as `PIHOLE_PASSWORD` (default: `admin` if not set)
+  - DNS server on port 53 (bound to your primary network interface)
+  - **Note**: Automatically configured to avoid conflicts with system DNS services
+
+### Using Pi-hole as Your DNS Server
+
+Pi-hole is configured to bind to your primary network interface on port 53 using the `PIHOLE_HOST_IP` environment variable from your `.env` file. This avoids conflicts with system services like systemd-resolved or LXC's dnsmasq.
+
+#### Configure Your Network to Use Pi-hole
+
+1. **Verify your server's IP address** (should match `PIHOLE_HOST_IP` in `.env`):
+   ```bash
+   hostname -I | awk '{print $1}'
+   ```
+
+2. **Configure your router:**
+   - Access your router's admin panel
+   - Find DNS settings (usually under DHCP, LAN, or Internet settings)
+   - Set Primary DNS to your server's IP address
+   - Set Secondary DNS to a fallback like `1.1.1.1` or `8.8.8.8`
+   - Save and reboot your router
+
+3. **Restart devices** or renew DHCP leases to pick up the new DNS settings
+
+**Important Notes:**
+- Your server must have a **static IP address** or DHCP reservation
+- When Pi-hole is down, you will lose DNS resolution (keep a backup DNS configured)
+- All devices on your network will automatically use Pi-hole for DNS and ad-blocking
+- Pi-hole binds to your primary network interface only, not all interfaces
+
+### Setting Up Reverse Proxy
+
+Use Nginx Proxy Manager to set up friendly URLs for your services:
+
+1. Access Nginx Proxy Manager at http://localhost:81
+2. Log in with default credentials
+3. Add proxy hosts for each service
+4. Access services using custom domains (e.g., http://pihole.lvh.me)
+
+## Troubleshooting
+
+### sudo-rs Compatibility
+
+This project is compatible with both standard `sudo` and `sudo-rs`. The Ansible configuration automatically uses `sudo.ws` as the become executable, which is required for `sudo-rs` to work properly with Ansible's password prompts.
+
+If you experience any sudo-related issues, verify your sudo version:
+```bash
+sudo --version
+```
 
 ## License
 

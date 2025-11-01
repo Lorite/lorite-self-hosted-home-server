@@ -98,5 +98,6 @@
         - "{{ services_dir }}/nginx-proxy-manager"
         - "{{ services_dir }}/hello-app"
         - "{{ services_dir }}/portainer"
+        - "{{ services_dir }}/pihole"
         - "{{ homelab_dir }}/configs"
         - "{{ homelab_dir }}/data"

@@ -229,6 +229,7 @@ if [ "$INVENTORY" = "local" ]; then
     echo "  - Nginx Proxy Manager: http://localhost:81"
     echo "  - Hello World App: http://localhost:8080"
     echo "  - Portainer: http://localhost:9000"
+    echo "  - Pi-hole: http://localhost:8081/admin (DNS on port 53)"
 else
     SERVER_IP=$INVENTORY
     if [ "$INVENTORY" = "remote" ]; then
@@ -237,6 +238,7 @@ else
     echo "  - Nginx Proxy Manager: http://$SERVER_IP:81"
     echo "  - Hello World App: http://$SERVER_IP:8080"
     echo "  - Portainer: http://$SERVER_IP:9000"
+    echo "  - Pi-hole: http://$SERVER_IP:8081/admin (DNS on port 53)"
 fi
 
 echo ""
@@ -248,12 +250,17 @@ echo -e "${YELLOW}🔐 Default portainer credentials:${NC}"
 echo "  Username: admin"
 echo "  Password: myportainerpassword"
 echo ""
+echo -e "${YELLOW}🔐 Pi-hole credentials:${NC}"
+echo "  Password: Set in .env file (PIHOLE_PASSWORD)"
+echo ""
 echo -e "${YELLOW}💡 After setting up proxy hosts in NPM, you can access:${NC}"
 if [ "$INVENTORY" = "local" ]; then
     echo "  In some browsers, you can use the following URLs:"
     echo "  - Hello World: http://hello.lvh.me/"
     echo "  - Portainer: http://portainer.lvh.me/"
+    echo "  - Pi-hole: http://pihole.lvh.me/"
 else
     echo "  - Hello World: http://hello.$SERVER_IP"
     echo "  - Portainer: http://portainer.$SERVER_IP"
+    echo "  - Pi-hole: http://pihole.$SERVER_IP"
 fi

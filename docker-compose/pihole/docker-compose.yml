@@ -1,0 +1,33 @@
+services:
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    restart: unless-stopped
+    hostname: pihole
+    ports:
+      - "${PIHOLE_HOST_IP:-127.0.0.1}:53:53/tcp"
+      - "${PIHOLE_HOST_IP:-127.0.0.1}:53:53/udp"
+      - "8081:80/tcp"
+    environment:
+      TZ: 'America/New_York'
+      FTLCONF_webserver_api_password: '${PIHOLE_PASSWORD:-admin}'
+      FTLCONF_LOCAL_IPV4: '${PIHOLE_HOST_IP:-127.0.0.1}'
+    volumes:
+      - pihole_config:/etc/pihole
+      - pihole_dnsmasq:/etc/dnsmasq.d
+    networks:
+      - npm_network
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    cap_add:
+      - NET_ADMIN
+
+volumes:
+  pihole_config:
+  pihole_dnsmasq:
+
+networks:
+  npm_network:
+    name: npm_network
+    external: true
